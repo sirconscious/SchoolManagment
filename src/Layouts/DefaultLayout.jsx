@@ -5,7 +5,11 @@ export default function DefaultLayout() {
   return (
     <div>
         <NavBar/>
+        <div className="w-full">
+
         <Outlet/>
+
+        </div>
     </div>
   )
 }

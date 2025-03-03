@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import {  useSelector } from "react-redux"; 
+import { AuthSelector } from "../services/selectors/Selectors";
 export default function NavBar() {
+    const isLogedIn = useSelector(AuthSelector);
+    console.log(isLogedIn)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isLogedIn, setIsLogedIn] = useState(true);
+    // const [isLogedIn, setIsLogedIn] = useState(true);
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -29,7 +33,6 @@ export default function NavBar() {
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     >
                         <span className="sr-only">Open user menu</span>
-                        {/* <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="user photo" /> */}
                         {isLogedIn ? (
                             <FaRegUser className="w-8 h-8 rounded-full bg-gray-800 p-1 text-white" />
                         ) : (

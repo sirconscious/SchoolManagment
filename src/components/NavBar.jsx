@@ -1,13 +1,37 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { FaRegUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {  useSelector } from "react-redux"; 
 import { AuthSelector } from "../services/selectors/Selectors";
+import { useDispatch } from "react-redux";
+import { LOGOUT_ACTION } from "../services/actions/actions"; 
+import DropDown from "./DropDown";
+import axios from "axios";
 export default function NavBar() {
     const isLogedIn = useSelector(AuthSelector);
-    console.log(isLogedIn)
+    // console.log(isLogedIn)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    // const [isLogedIn, setIsLogedIn] = useState(true);
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    } 
+    const naviger = useNavigate();
+    const dispatch = useDispatch();
+    const logout = async ()=>{
+        await axios.post('http://localhost:8000/logout' , {} ,{
+          headers : {
+            accept : "application/json" , 
+            "X-XSRF-TOKEN" : getCookie("XSRF-TOKEN")
+          } , 
+          withCredentials : true , 
+          withXSRFToken : true
+        }).then(()=>{
+            dispatch(LOGOUT_ACTION)
+            naviger("/login")})
+        // .catch(error =>{console.log(error)})
+    }
+    // const [isLogedIn, setIsLogedIn] = useState(true); 
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -41,56 +65,11 @@ export default function NavBar() {
                             </Link>
                         )}
                     </button>
-
                     {/* Dropdown menu */}
                     {isDropdownOpen && (
                         <div className="z-50 absolute right-4 top-14 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600">
                             {isLogedIn && (
-                                <>
-                                    {" "}
-                                    <div className="px-4 py-3">
-                                        <span className="block text-sm text-gray-900 dark:text-white">
-                                            Bonnie Green
-                                        </span>
-                                        <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
-                                            name@flowbite.com
-                                        </span>
-                                    </div>
-                                    <ul className="py-2">
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                            >
-                                                Dashboard
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                            >
-                                                Settings
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                            >
-                                                Earnings
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                            >
-                                                Sign out
-                                            </a>
-                                        </li>
-                                    </ul>{" "}
-                                </>
+                              <DropDown  />
                             )}
                         </div>
                     )}

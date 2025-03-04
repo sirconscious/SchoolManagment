@@ -38,7 +38,7 @@ export default function LoginForm() {
           localStorage.setItem("USER_DATA" , JSON.stringify({email : email , password : password}))
           console.log("test")
           dispatch(LOGIN_ACTION({email: email , password : password}))
-          naviger('/studentDashBord')
+          naviger('/student/dashbored')
       }
       })
       .catch(err =>{

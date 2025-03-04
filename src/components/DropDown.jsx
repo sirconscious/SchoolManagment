@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 export default function DropDown() { 
         const [user , setUser] = useState({})
-        useEffect(()=>{
+        useEffect(()=>{ 
             axios.get('http://localhost:8000/api/user',{
                 withCredentials : true
             })
@@ -59,14 +59,6 @@ export default function DropDown() {
             Settings
           </a>
         </li>
-        {/* <li>
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-          >
-            Earnings
-          </a>
-        </li> */}
         <li>
           <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" 
           onClick={logout}
@@ -74,7 +66,7 @@ export default function DropDown() {
             Sign Out
           </button>
         </li>
-      </ul>{" "}
+      </ul>
     </>
   );
 }

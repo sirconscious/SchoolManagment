@@ -10,7 +10,7 @@ export default function Login() {
     const loginStatus = localStorage.getItem("LOGIN_STATUS");
     if (loginStatus === "true") {
       console.log("Redirecting to /studentDashBord...");
-      navigate("/studentDashBord", { replace: true });
+      navigate("/student/dashbored", { replace: true });
     }
   }, [navigate]);
   

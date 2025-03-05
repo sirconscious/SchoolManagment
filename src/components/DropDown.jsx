@@ -1,7 +1,7 @@
 import React , {useState , useEffect} from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function DropDown() { 
         const [user , setUser] = useState({})
         useEffect(()=>{ 
@@ -36,7 +36,7 @@ export default function DropDown() {
     <>
       <div className="px-4 py-3">
         <span className="block text-sm text-gray-900 dark:text-white">
-          {user?.name}
+          {user?.name ? user?.name : user?.firstname}
         </span>
         <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
           {user?.email}
@@ -44,12 +44,12 @@ export default function DropDown() {
       </div>
       <ul className="py-2">
         <li>
-          <a
-            href="#"
+          <Link
+           to="/student/dashbored"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
           >
             Dashboard
-          </a>
+          </Link>
         </li>
         <li>
           <a

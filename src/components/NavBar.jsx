@@ -5,10 +5,17 @@ import {  useSelector } from "react-redux";
 import { AuthSelector } from "../services/selectors/Selectors";
 import { useDispatch } from "react-redux";
 import { LOGOUT_ACTION } from "../services/actions/actions"; 
+import { useLocation } from "react-router-dom";
 import DropDown from "./DropDown";
 import axios from "axios";
 export default function NavBar() {
-    const isLogedIn = useSelector(AuthSelector);
+    const isLogedIn = useSelector(AuthSelector); 
+    const [isStudentDash , setIsStudentDash] = useState("")
+    const loc  = useLocation()
+    useEffect(()=>{
+            console.log(loc.pathname)
+            setIsStudentDash(loc.pathname) 
+    },[])
     // console.log(isLogedIn)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     function getCookie(name) {
@@ -30,7 +37,8 @@ export default function NavBar() {
             dispatch(LOGOUT_ACTION)
             naviger("/login")})
         // .catch(error =>{console.log(error)})
-    }
+    } 
+    
     // const [isLogedIn, setIsLogedIn] = useState(true); 
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900  z-50">
@@ -39,13 +47,18 @@ export default function NavBar() {
                     href="https://flowbite.com/"
                     className="flex items-center space-x-3 rtl:space-x-reverse"
                 >
-                    <img
+                    {/* <img
                         src="https://flowbite.com/docs/images/logo.svg"
                         className="h-8"
                         alt="Flowbite Logo"
-                    />
+                    /> */}
+                   
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                        Flowbite
+                       
+                       {
+                        isStudentDash==="/student/dashbored" || isStudentDash === "/admin/dashbored" || isStudentDash === "/teacher/dashbored" ? ""  : "SchoolMangment"
+                       }
+                        
                     </span>
                 </a>
 
@@ -106,7 +119,9 @@ export default function NavBar() {
                     className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
                     id="navbar-user"
                 >
-                    <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                   {
+                    isStudentDash == "/student/dashbored" || isStudentDash == "/admin/dashbored" || isStudentDash == "/teacher/dashbored" ? "" :
+                        <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
                             <Link
                                 className="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
@@ -149,6 +164,8 @@ export default function NavBar() {
                             </Link>
                         </li>
                     </ul>
+                    
+                   }
                 </div>
             </div>
         </nav>

@@ -1,16 +1,16 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 import { Outlet } from 'react-router-dom' 
-import SideBar from '../components/SideBar'
+import StudentDashboard from '../components/StudentDashbored'
 export default function SrudentLayout() {
   return (
     <div>
-        <div className=" z-50">
+        <div className=" fixed right-0 w-full">
         <NavBar />
-            </div>
-            <div className="z-10">
-        <SideBar />
-            </div>
+        </div>
+            
+       
+            
         <Outlet />
     </div>
   )

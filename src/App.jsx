@@ -6,6 +6,10 @@ import Home from './Pages/Home'
 import { useDispatch } from 'react-redux'
 import SrudentLayout from './Layouts/SrudentLayout'
 import StudentDashboard from './Pages/StudentDashboard'
+import AdminLayout from './Layouts/AdminLayout'
+import AdminDashbored from './components/AdminDashbored'
+import TeacherLayout from './Layouts/TeacherLayout'
+import TeacherDashbored from './components/TeacherDashbored'
 export default function App() {  
   const dispatch = useDispatch()
     useEffect(() => {
@@ -19,15 +23,23 @@ export default function App() {
     <>
       <BrowserRouter>
         <Routes>
+          {/* default route */}
           <Route path="/" element={<DefaultLayout/>}>
               <Route index element={<Home/>}/>
               <Route path='/login' element={<Login/>} />
-              {/* <Route path='/studentDashBord' element={<StudentDashboard/>} /> */}
           </Route>
+          {/* student route */}
           <Route path='/student' element={<SrudentLayout/>} >
             <Route index element={<h3>Tets</h3>} />
-            <Route  path='dashbored' element={<h3><StudentDashboard/></h3>} />
+            <Route  path='dashbored' element={<StudentDashboard />} />
             <Route  path='pop' element={<h3>pop</h3>} />
+          </Route>
+          {"/* admin route */"}
+          <Route path='/admin' element={<AdminLayout />} >
+          <Route path='dashbored' element={<AdminDashbored />}/>
+          </Route>
+          <Route path='/teacher' element={<TeacherLayout />}>
+          <Route path='dashbored' element={<TeacherDashbored />} />
           </Route>
         </Routes>
       </BrowserRouter>

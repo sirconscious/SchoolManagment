@@ -27,7 +27,7 @@ export default function LoginForm() {
       const data =   await axios.post("http://localhost:8000/login",{email : email , password : password},{
         headers : {
           accept : "application/json" , 
-          "X-XSRF-TOKEN" : getCookie("XSRF-TOKEN")
+          // "X-XSRF-TOKEN" : getCookie("XSRF-TOKEN")
         } , 
         withCredentials : true , 
         withXSRFToken : true

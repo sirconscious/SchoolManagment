@@ -36,6 +36,8 @@ export default function LoginForm() {
           setIsLoading(false)
           localStorage.setItem('LOGIN_STATUS' , "true")
           localStorage.setItem("USER_DATA" , JSON.stringify({email : email , password : password}))
+          localStorage.setItem("token" ,values.data.token)  
+          localStorage.setItem("role" ,values.data.user.role)
           console.log("test")
           dispatch(LOGIN_ACTION({email: email , password : password}))
           const role = values.data.user.role

@@ -3,13 +3,21 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 export default function DropDown() { 
-        const [user , setUser] = useState({})
-        useEffect(()=>{ 
-            axios.get('http://localhost:8000/api/user',{
-                withCredentials : true
-            })
-            .then(response=>setUser(response.data))
-        } , []) 
+        const [user , setUser] = useState({})  
+        const token = localStorage.getItem("token")
+        const role = localStorage.getItem("role") 
+        console.log("role")
+        console.log(token)
+        useEffect(() => {
+          axios.get(`http://localhost:8000/api/${role}`, {
+              withCredentials: true,
+              headers: {
+                  'Authorization': `Bearer ${token}`
+              }
+          })
+          .then(response => setUser(response.data))
+          .catch(error => console.error("Error:", error));
+      }, []);
 
     //pour le logout 
     const naviger = useNavigate() 
@@ -23,7 +31,8 @@ export default function DropDown() {
         await axios.post('http://localhost:8000/logout' , {} ,{
           headers : {
             accept : "application/json" , 
-            "X-XSRF-TOKEN" : getCookie("XSRF-TOKEN")
+            "X-XSRF-TOKEN" : getCookie("XSRF-TOKEN") ,
+             'Authorization': `Bearer ${token}`
           } , 
           withCredentials : true , 
           withXSRFToken : true

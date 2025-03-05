@@ -9,9 +9,7 @@ export default function SrudentLayout() {
       <div className=" fixed right-0 w-full">
         <NavBar />
       </div>
-
       <StudentSideBar />
-
       <Outlet />
     </div>
   );

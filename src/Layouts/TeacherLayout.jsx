@@ -8,7 +8,6 @@ export default function TeacherLayout() {
       <div className=" fixed right-0 w-full">
         <NavBar />
       </div>
-
       <TeacherSideBar />
       <Outlet />
     </>
